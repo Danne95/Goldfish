@@ -2,11 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>task-events-manager</title>
-    <script type="module" crossorigin src="/assets/index-Dtpy0Oiy.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-oFGyaNAL.css">
+    <meta
+      name="description"
+      content="A personal day-to-day manager for birthdays, tasks, anime releases, and meetings."
+    />
+    <title>Goldfish Day Manager</title>
+    <script>
+      try {
+        const persisted = JSON.parse(localStorage.getItem('goldfish-theme'))
+        const theme = persisted?.state?.theme || 'dark'
+        document.documentElement.classList.toggle('dark', theme === 'dark')
+        document.documentElement.style.colorScheme = theme
+      } catch {
+        document.documentElement.classList.add('dark')
+        document.documentElement.style.colorScheme = 'dark'
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-BJk7kUzL.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CLiH-0M0.css">
   </head>
   <body>
     <div id="root"></div>

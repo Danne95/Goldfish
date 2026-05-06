@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# Goldfish Day Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal day-to-day manager built with React, Vite, React Router, Tailwind CSS, Zustand, and Supabase.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React + Vite
+- React Router v6
+- Tailwind CSS with class-based dark mode, dark by default
+- Zustand stores for theme and auth session
+- Supabase Auth, PostgreSQL, and Row Level Security
+- Vercel-ready static frontend
+- PWA placeholders: `public/manifest.webmanifest` and `public/sw.js` without service worker registration
 
-## React Compiler
+## Local Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Install dependencies:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Create `.env` from `.env.example`:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
+
+3. In Supabase SQL Editor, run:
+
+```bash
+supabase/schema.sql
+```
+
+4. Start the dev server:
+
+```bash
+npm run dev
+```
+
+## Supabase Auth
+
+Enable Google OAuth in Supabase Authentication providers, then add these redirect URLs:
+
+- Local: `http://localhost:5173`
+- Production: your Vercel domain
+
+## Architecture Notes
+
+- Pages and components do not import `supabaseClient`; all Supabase calls live in `src/services`.
+- Hooks in `src/hooks` own loading, error, refresh, and mutation state.
+- `Modal` and `Card` are compound components.
+- Task sorting is strategy-based through `src/utils/taskUtils.js`.
+- Theme and authenticated session are single sources of truth in Zustand stores.

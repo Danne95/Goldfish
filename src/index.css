@@ -1,72 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-canvas: 245 240 229;
+  --color-canvas-elevated: 255 252 245;
+  --color-canvas-muted: 237 229 214;
+  --color-ink: 27 31 42;
+  --color-ink-muted: 83 91 108;
+  --color-ink-soft: 123 133 153;
+  --color-line: 215 204 184;
+  --color-brand: 192 122 46;
+  --color-brand-strong: 120 74 24;
+  --color-brand-soft: 253 225 167;
+  --color-danger: 214 74 74;
+  --color-danger-soft: 255 224 224;
+  --color-success: 54 151 115;
+  --color-success-soft: 217 244 232;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+.dark {
+  --color-canvas: 7 11 19;
+  --color-canvas-elevated: 14 20 32;
+  --color-canvas-muted: 20 29 44;
+  --color-ink: 246 241 226;
+  --color-ink-muted: 172 181 198;
+  --color-ink-soft: 116 128 150;
+  --color-line: 50 61 82;
+  --color-brand: 242 184 75;
+  --color-brand-strong: 255 210 118;
+  --color-brand-soft: 78 55 24;
+  --color-danger: 255 119 119;
+  --color-danger-soft: 79 32 36;
+  --color-success: 93 214 161;
+  --color-success-soft: 25 67 54;
 }
-a:hover {
-  color: #535bf2;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: rgb(var(--color-canvas));
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgb(var(--color-brand) / 0.18), transparent 34rem),
+    radial-gradient(circle at 85% 10%, rgb(60 113 160 / 0.18), transparent 28rem),
+    linear-gradient(135deg, rgb(var(--color-canvas)), rgb(var(--color-canvas-muted)));
+  color: rgb(var(--color-ink));
+  font-family: theme('fontFamily.body');
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+::selection {
+  background: rgb(var(--color-brand) / 0.3);
+}
+
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-canvas;
+}
+
+.surface-grid {
+  background-image:
+    linear-gradient(rgb(var(--color-line) / 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--color-line) / 0.08) 1px, transparent 1px);
+  background-size: 46px 46px;
 }
